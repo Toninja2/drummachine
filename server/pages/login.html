@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Drum Machine</title>
+        <link rel='stylesheet' href='style/style.css'/>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <script src='js/login.js'></script>
+        <script src='js/lateralMenu.js'></script>
+        <script src='js/movableWindow.js'></script>
+        <link rel="icon" href="imgs/appIcon.ico"/>
+	<script data-ad-client="ca-pub-5521883588580599" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    </head>
+    <body class="flex">
+        <div id="lateralMenu">
+			<div id="lMenuHeader">
+				<span></span>
+				<h1>Options</h1>
+			</div>
+			<div id="options">
+                <button onclick="saveOnWeb()">Save on web</button>
+                <button onclick="getSong()">Load from web</button>
+			</div>
+		</div>
+        <header>
+            <button id="dlConfig" onclick="downloadConfig()">
+                Go to the song creation page
+            </button>
+            <button class="menuBarB" onclick="rotateRects()">
+				<div id="0" class='rectSvg'></div>
+				<div id='1' class='rectSvg'></div>
+			</button>
+        </header>
+
+        <div id="loginForm">
+            <h1 id="loginH1">Login</h1>
+            <div class="formEntry">
+                <label for="name">Name</label>
+                <input name="name" id="name">
+            </div>
+            <div class="formEntry">
+                <label for="password">Password</label>
+                <input type="password" name="password" id="password">
+            </div>
+            <button onclick="log()">Log in</button>
+        </div>
+
+        <div id="popupContainer">
+            <div id="popup">
+                <i class="material-icons">&#xe000;</i>
+                <h1>Not supported in your browser !</h1>
+            </div>
+        </div>
+    </body>
+</html>

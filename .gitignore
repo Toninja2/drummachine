@@ -1,0 +1,4 @@
+node_modules
+package-lock.json
+electron-quick-start-win32-x64
+VideoPlayer-win32-x64

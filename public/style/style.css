@@ -1,0 +1,921 @@
+@import url('https://fonts.googleapis.com/css?family=Alegreya+Sans+SC|Be+Vietnam|Big+Shoulders+Display|Exo|Exo+2|Julius+Sans+One|Montserrat|News+Cycle|Nunito|Open+Sans+Condensed:300|Oswald|PT+Sans|Poppins|Quicksand|Reem+Kufi|Roboto|Roboto+Condensed|Source+Code+Pro|Ubuntu|Ubuntu+Condensed|Ubuntu+Mono|Roboto+Mono&display=swap');
+@import url('https://fonts.googleapis.com/css?family=YT+Sans:500,700');
+
+* {
+    outline: none;
+    margin: 0;
+    padding: 0;
+}
+hr.break {
+    width: 100%;
+    height: 1px;
+    border: none;
+    background: #ebebeb;
+    margin-top: 20px;
+}
+body, html {
+    width: 100%;
+    height: 100%;
+}
+body.flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#projectsList, #userList {
+    width: 100%;
+    height: calc(100% - 75px);
+    background: #ebebeb;
+    position: absolute;
+    top: 75px;
+    display: flex;
+    align-items: center;
+}
+.dSong, .dUser {
+    cursor: pointer;
+    transition: 0.1s;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    min-height: 100px;
+    border-bottom: 1px solid #ebebeb;
+    background: white;
+    border-left: 1px solid #ebebeb;
+}
+.searchNotInclude {
+    display: none;
+}
+#mainInfos {
+    width: 100%;
+    height: calc(100% - 75px);
+    position: absolute;
+    top: 75px;
+    display: flex;
+    flex-direction: row;
+}
+#profilePicture {
+    background: #ebebeb;
+    width: 500px;
+    height: 600px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+#onProfilePicture {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 500px;
+    height: 600px;
+    z-index: 7;
+    background: rgba(255, 255, 255, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.7em;
+    font-family: 'Roboto condensed';
+    font-weight: bold;
+}
+.M, #accountInfos h1 {
+    border-left: 3px solid #ebebeb;
+    border-radius: 5px;
+    padding-left: 10px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    transition: 0.5s;
+    cursor: pointer;
+}
+.M:hover, #accountInfos h1:hover {
+    transform: translate(15px);
+}
+#generalInfos {
+    display: flex;
+    flex-direction: column;
+}
+#generalInfos h1 {
+    margin-left: 30px;
+    margin-top: 30px;
+    font-weight: bold;
+}
+#menu input {
+    width: 90%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+#menu p {
+    margin-top: 10px;
+    font: 400 13.3333px Arial;
+}
+#menu hr {
+    width: 100%;
+    border: none;
+    height: 1px;
+    background: #ebebeb;
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+#menu button {
+    cursor: pointer;
+    transition: 0.2s;
+    width: 100%;
+    height: 40px;
+    background: white;
+    border: none;
+    border-radius: 5px;
+}
+#menu button:hover {
+    background: #ebebeb;
+}
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+#menu {
+    position: absolute;
+    width: 170px;
+    border-radius: 10px;
+    height: auto;
+    z-index: 7;
+    background: white;
+    /*box-shadow: 0 0 5px 1px #e3e3e3;*/
+    box-shadow: 0px 0px 15px 0.5px rgba(0, 0, 0, 0.01);
+    padding: 8px;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    animation: 0.25s fadeIn;
+}
+#accountInfos {
+    font-family: 'Exo 2';
+    font-weight: bold;
+
+    display: flex;
+    flex-direction: row;
+
+    width: calc(100% - 500px);
+    /*border-left: 1px solid #d4d4d4;*/
+    height: 600px;
+    background: #f4f4f4;
+}
+#profilePicture {
+    position: relative;
+}
+#profilePicture canvas {
+    border-radius: 3px;
+}
+#profilePicture img {
+    width: 300px;
+    height: 300px;
+    border-radius: 3px;
+}
+#profilePicture label {
+    margin: 0;
+
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    transition: 0.5s;
+    cursor: pointer;
+}
+#profilePicture label:hover {
+    color: #ebebeb;
+}
+
+.dSong div, .dUser div {
+    margin-left: 22.5px;
+    display: flex;
+    flex-direction: column;
+}
+.dSong:hover, .sDSelected, .dUser:hover {
+    background: #f4f4f4;
+}
+.dSong div h1, .dSong div p, .dUser div h1, .dUser div p {
+    font-family: Poppins;
+}
+.dSong div h1, .dUser div h1 {
+    color: dark;
+    font-size: 1.25em;
+}
+.dSong div p, .dUser div p {
+    color: #ebebeb;
+}
+.darken {
+    font-size: 0.7em;
+}
+#edit {
+    background: #2e6dff;
+    border: none;
+    height: 50px;
+    border-radius: 2px;
+    margin-left: 15px;
+    position: absolute;
+    bottom: 15px;
+    transition: 0.3s;
+    width: calc(100% - 30px);
+}
+#edit.disabled {
+    cursor: not-allowed;
+}
+#searchBar {
+    position: absolute;
+    right: 17.5px;
+    width: 250px;
+    padding: 15px;
+    background: #ebebeb;
+    border: none;
+    border-radius: 3px;
+    height: 45px;
+}
+#edit:not(.disabled):hover {
+    transform: scale(1.02);
+}
+#userProfilePicture {
+    margin: 30px;
+    width: 300px;
+    height: 300px;
+    border-radius: 3px;
+}
+#projectsList #lCInfos, #userList #uInfos {
+    position: relative;
+    background: white;
+    width: 30%;
+    height: 100%;
+}
+#lCInfos #globalInfos, #uInfos #globalInfos {
+    margin-top: 30px;
+    width: calc(100% - 45px);
+    height: auto;
+    margin-left: 30px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid #ebebeb;
+}
+#songInfos, #userInfos {
+    flex: 2;
+    height: auto;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+#globalInfos h1 {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    font-size: 1.7em;
+    font-family: 'Exo 2';
+    font-weight: bold;
+}
+#globalInfos p {
+    margin-top: 10px;
+    color: #ebebeb;
+    font-size: 1.3em;
+    font-family: 'Exo 2';
+}
+.nD {
+    font-size: 1.2em;
+    margin-left: 30px;
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    font-family: 'Exo 2';
+}
+.nD p:nth-child(1) {
+    color: #ebebeb;
+}
+.nD p:nth-child(2) {
+
+}
+#pL {
+    overflow: auto;
+    width: 70%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+#noFound {
+    font-size: 1.5em;
+    color: dark;
+    margin: auto;
+    font-family: "Poppins";
+}
+#loginForm {
+    width: 50%;
+    height: 50%;
+    background: white;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #f4f4f4;
+    position: relative;
+    box-shadow: 0 0 15px 5px #ebebeb;
+    padding-bottom: 70px;
+}
+#loginForm button {
+    border: none;
+    border-radius: 5px;
+    width: 60%;
+    height: 50px;
+    margin-top: 15px;
+    cursor: pointer;
+}
+#loginForm h1 {
+    font-family: "YT Sans";
+    font-size: 2.3em;
+    margin-bottom: 50px;
+}
+#loginForm div.formEntry {
+    margin-bottom: 15px;
+    position: relative;
+    width: 60%;
+    height: 60px;
+    background: #ebebeb;
+    border-radius: 5px;
+    border: 1px solid #ebebeb;
+    transition: 0.05s;
+}
+#loginForm div.formEntry input {
+    border-radius: 5px;
+    border: none;
+    padding: 15px;
+    height: 30px;
+    width: calc(100% - 30px);
+    font-family: "Roboto Condensed";
+    font-size: 1.15em;
+}
+.passwordEntry button {
+
+}
+
+#loginForm div.formEntry:focus-within label, #loginForm div.formEntry label.active {
+    padding-left: 3px;
+    padding-right: 3px;
+    font-size: 0.95em;
+    top: -9px;
+    background: white;
+    color: #3498db;
+}
+#loginForm div.formEntry:not(:focus-within) label {
+    color: #ebebeb;
+}
+input:not(:empty) {
+    color: red;
+}
+#loginForm div.formEntry:focus-within {
+    border: 2px solid #3498db;
+}
+#loginForm div.formEntry label {
+    padding-bottom: 0;
+    padding-top: 0;
+    transition: 0.2s;
+    cursor: text;
+    user-select: none;
+    position: absolute;
+    top: calc(50% - 9.5px);
+    font-family: "Roboto Condensed";
+    color: #d4d4d4;
+    margin-left: 15px;
+    left: 0;
+}
+#popupContainer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 6;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+@keyframes scaleUp {
+    from {
+        transform: scale(0);
+    } to {
+        transform: scale(1);
+    }
+}
+#popup i {
+    font-size: 80px;
+    color: #e74c3c;
+}
+#popup h1 {
+    font-family: "Exo 2";
+    margin-top: 25px;
+}
+#popup {
+    animation: scaleUp 0.5s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    height: 60%;
+    background: white;
+    border-radius: 15px;
+}
+header {
+    z-index: 5;
+    width: 100%;
+    height: 75px;
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    /*background: #3b3b3b;*/
+    background: white;
+    box-shadow: 0 5px 2px -2px #d4d4d4;
+
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+}
+.menuBarB {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    cursor: pointer;
+    border: none;
+    width: 50px;
+    height: 50px;
+    max-width: 50px;
+    max-height: 50px;
+    background: transparent;
+    margin-left: 17.5px;
+}
+.rectSvg {
+    transition: 0.5s;
+    transform-origin: center;
+    margin: 5px;
+    width: 40px;
+    height: 5px;
+    background: black;
+    border-radius: 25px;
+}
+#lateralMenu {
+    background: white;
+    box-shadow: 5px 0px 10px -2px #d4d4d4;
+    z-index: 4;
+    width: 20%;
+    height: calc(100% - 75px);
+    position: fixed;
+    left: 0;
+    transform: translateX(-100%);
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    transition: 0.8s;
+    transition-timing-function: ease-in-out;
+}
+#lMenuHeader span {
+    height: 100%;
+    width: 5px;
+    background: #e67e22;
+}
+#lMenuHeader {
+    height: 75px;
+    display: flex;
+    align-items: center;
+    font-family: "Roboto condensed";
+    font-size: 0.8em;
+    font-weight: bold;
+    border-bottom: 1px solid #ebebeb;
+}
+#songName {
+    margin-right: 25px;
+    font-family: 'Roboto condensed';
+    height: 100%;
+    padding-left: 25px;
+    border-left: 1px solid #ebebeb;
+    display: flex;
+    align-items: center;
+    letter-spacing: 1px;
+    font-size: 1.2em;
+    overflow: hidden;
+    max-width: 300px;
+}
+#options {
+    background: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 2;
+}
+#options button:not(.disabled):hover {
+    transform: scale(1.02);
+}
+#options button {
+    transition: 0.5s;
+    margin-top: 20px;
+    cursor: pointer;
+    color: white;
+    width: 90%;
+    height: 40px;
+    border: none;
+    border-radius: 3px;
+}
+#options button:not(#loginButton) {
+    background: #2e6dff;
+}
+#loginButton {
+    background: #27ae60;
+}
+#lMenuHeader h1 {
+    margin-left: 15px;
+}
+#addColumn, #removeColumn, #dlConfig {
+    cursor: pointer;
+    color: white;
+    margin-right: 17.5px;
+    width: 200px;
+    height: 40px;
+    background: #2e6dff;
+    border: none;
+    border-radius: 3px;
+}
+#addColumn.disabled, #removeColumn.disabled, #dlConfig.disabled {
+    cursor: not-allowed;
+}
+header button, header label {
+    transition: 0.5s;
+}
+header button:not(.disabled):hover, header label:not(.disabled):hover {
+    transform: scale(1.05);
+}
+/*
+.custom-file-input::-webkit-file-upload-button {
+    visibility: hidden;
+}
+.custom-file-input::before {
+  content: 'Select some files';
+  display: inline-block;
+  background: white;
+  border: 1px solid #ebebeb;
+  border-radius: 3px;
+  padding: 5px 8px;
+  outline: none;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 10pt;
+}
+.custom-file-input:hover::before {
+    border-color: #d4d4d4;
+}
+.custom-file-input:active::before {
+    background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
+}*/
+#fileContainer {
+    width: 150px;
+    height: 40px;
+    margin-left: 17.5px;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font: 400 13.3333px Arial;
+    background: #16a085;
+    transition: 0.2s;
+    cursor: pointer;
+}
+#fileContainer input {
+    display: none;
+}
+
+#dlConfig {
+    background: #1abc9c;
+    margin-left: 17.5px;
+    margin-right: auto;
+}
+footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 40px;
+
+    display: none;
+    align-items: center;
+
+    background: white;
+    box-shadow: 0 -5px 2px -2px #d4d4d4;
+}
+footer h1 {
+    font-weight: normal;
+    font-size: 1em;
+    font-family: 'Roboto condensed';
+    margin-left: 15px;
+}
+#machineContainer {
+    width: 100%;
+    height: calc(100% - 75px);
+
+    position: absolute;
+    top: 75px;
+
+    display: flex;
+    flex-direction: column;
+}
+#macContainer {
+    display: flex;
+    flex-direction: row;
+    height: calc(100% - 75px);
+    width: 100%;
+}
+#machine::-webkit-scrollbar {
+    border-left: 1px solid rgba(235, 235, 235, 0.6);
+    height: 10px;
+    width: 100%;
+}
+#machine::-webkit-scrollbar-track {
+    background: #ebebeb;
+}
+#machine::-webkit-scrollbar-thumb {
+    border-radius: 25px;
+    background: #d4d4d4;
+}
+#machine::-webkit-scrollbar-thumb:hover {
+    background: #b8b8b8;
+}
+#drumsInfos {
+    min-width: 100px;
+    max-width: 100px;
+    height: calc(100% - 10px);
+
+    display: flex;
+    flex-direction: column;
+}
+input[type=range] {
+    height: 16px;
+    -webkit-appearance: none;
+    background-color: transparent;
+    width: 105px;
+}
+input[type=range]:focus {
+    outline: none;
+}
+input[type=range]::-webkit-slider-runnable-track {
+    padding:0;
+    width: 100%;
+    height: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    background: #ebebeb;
+    border-radius: 5px;
+    border: none;
+}
+input[type=range]::-webkit-slider-thumb:hover {
+	background: #2e6dff;
+}
+input[type=range]::-webkit-slider-thumb {
+    height: 15px;
+	transition: 0.3s;
+    width: 15px;
+    clip-path: circle(5px);
+    background: #bababa;
+    cursor: pointer;
+    -webkit-appearance: none;
+}
+.drumInfo {
+    border: 1px solid rgba(235, 235, 235, 0.6);
+    border: none;
+    border-bottom: 1px solid rgba(235, 235, 235, 0.6);
+    display: flex;
+
+    align-items: center;
+    font-family: "Roboto condensed";
+    flex: 2;
+    position: relative;
+}
+.playSound {
+    background: transparent;
+    width: 24px;
+    height: 24px;
+    border: none;
+    margin: 0;
+    padding: 0;
+    color: #16a085;
+    position: absolute;
+    bottom: 5px;
+    left: 5px;
+    cursor: pointer;
+}
+.drumInfo p {
+    margin-left: 17px;
+}
+.drumInfo input {
+    position: absolute;
+    margin-left: 25px;
+}
+.drumInfo p, .drumInfo input {
+    transform: rotate(-90deg);
+}
+#machine {
+    height: 100%;
+    width: 100%;
+    background: rgba(235, 235, 235, 0.6);
+
+    display: flex;
+    flex-direction: column;
+    overflow-x: scroll;
+}
+#controls {
+    height: 75px;
+    width: 100%;
+    position: relative;
+    border-top: 1px solid rgba(235, 235, 235, 0.6);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+#controls button {
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 15px;
+
+    width: 55px;
+    height: 55px;
+
+    border: none;
+    border-radius: 50%;
+
+    background: #ebebeb;
+    transition: 0.3s;
+}
+#controls button:hover {
+    background: #d4d4d4;
+}
+#controls button i {
+    font-size: 2em;
+}
+#play, #pause, #stop {
+    color: #16a085;
+}
+/*#pause {
+    color: #16a085;
+}
+#stop {
+    color: #1abc9c;
+}*/
+#reload {
+    color: #e74c3c;
+}
+#selectNumber {
+    display: flex;
+    flex-direction: row;
+    height: 50px;
+    width: 100px;
+    border: 1px solid rgba(235, 235, 235, 0.3);
+}
+#selectNumber input {
+    padding: 10px;
+    height: 30px;
+    font-family: 'Exo 2';
+    font-size: 1em;
+}
+#downUp {
+    padding: 0;
+    margin: 0;
+}
+#tempoIndicator {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Roboto condensed';
+    border-top: 1px solid rgba(235, 235, 235, 0.3);
+    border-bottom: 1px solid rgba(235, 235, 235, 0.3);
+    border-left: 1px solid rgba(235, 235, 235, 0.3);
+    height: 30px;
+    padding: 10px;
+}
+#controlsSeparator {
+    margin-left: 15px;
+    margin-right: 15px;
+    height: 50%;
+    width: 1px;
+    border: 0;
+    background: rgba(235, 235, 235, 0.8);
+}
+#downUp {
+    height: auto;
+    width: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-left: 1px solid rgba(235, 235, 235, 0.3);
+}
+#downUp hr {
+    width: 100%;
+    height: 1px;
+    border: none;
+    background: rgba(235, 235, 235, 0.1);
+}
+#downUp button {
+    margin: 0;
+    /*border: 1px solid rgba(235, 235, 235, 0.3);*/
+    width: 30px;
+    height: 30px;
+    border-radius: 2px;
+    background: white;
+    transition: 0.5s;
+}
+#downUp button:hover {
+    background: rgba(235, 235, 235, 0.3);
+}
+input {
+    background: white;
+    border: none;
+    width: 100%;
+    height: 50px;
+}
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+}
+
+.machineRow {
+    height: auto;
+    wdith: 100%;
+
+    flex: 2;
+
+    display: flex;
+    flex-direction: row;
+}
+.machineRow button {
+    min-width: 100px;
+    cursor: pointer;
+    flex: 2;
+    border: 0.5px solid #d4d4d4;
+    border: none;
+    border-right: 1px solid #d4d4d4;
+    border-bottom: 1px solid #d4d4d4;
+    background: #ebebeb;
+}
+.machineRow:nth-child(even) button {
+    background: #e3e3e3;
+}
+.machineRow button:hover {
+    background: rgba(217, 217, 217, 1);
+}
+.machineRow button.playing {
+    background: #d4d4d4;
+    /*border-left: 5px solid #e67e22;*/
+}
+.machineRow button.playing svg {
+    transform: scale(1.2);
+}
+.machineRow button.tempoChange {
+    background: rgba(231, 76, 60, 0.5);
+    border:none;
+}
+
+.machineRow button svg {
+    stroke-width: 3px;
+    transition: 0.3s;
+}
+.machineRow button svg circle {
+    fill: #d4d4d4;
+}
+.machineRow button:nth-child(4n+1) svg circle {
+    fill: #b8b8b8;
+}
+.machineRow button.tempoChange svg circle {
+    fill:#e67e22;
+}
+.machineRow button.tempoChange.selected svg circle {
+    fill: transparent;
+}
+div#kick button.selected svg {
+    stroke: #c0392b;
+}
+div#snare button.selected svg {
+    stroke: #e74c3c;
+}
+div#hiHat button.selected svg {
+    stroke: #d35400;
+}
+div#bell button.selected svg {
+    stroke: #e67e22;
+}
+div#bC button.selected svg {
+    stroke: #f39c12;
+}

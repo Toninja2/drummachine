@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Drum Machine</title>
+        <link rel='stylesheet' href='style/style.css'/>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <script src='js/login.js'></script>
+        <script src='js/lateralMenu.js'></script>
+        <link rel="icon" href="imgs/appIcon.ico"/>
+<script data-ad-client="ca-pub-5521883588580599" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    </head>
+    <body class="flex">
+        <div id="lateralMenu">
+			<div id="lMenuHeader">
+				<span></span>
+				<h1>Options</h1>
+			</div>
+			<div id="options">
+                <button onclick="saveOnWeb()">Save on web</button>
+                <button onclick="getSong()">Load from web</button>
+			</div>
+		</div>
+        <header>
+            <button id="dlConfig" onclick="downloadConfig()">
+                Go to the song creation page
+            </button>
+            <button class="menuBarB" onclick="rotateRects()">
+				<div id="0" class='rectSvg'></div>
+				<div id='1' class='rectSvg'></div>
+			</button>
+        </header>
+        <div id="mainInfos">
+            <div id="onProfilePicture">
+                <p>Loading picture ...</p>
+            </div>
+            <div id="profilePicture">
+                <img id='test'/>
+                <label id="fileContainer">
+                    Load a picture
+                    <input id="file" type="file" onchange="sF()" class="custom-file-input">
+                </label>
+            </div>
+            <div id="accountInfos">
+                <div id="generalInfos">
+                    <h1 style="color: #2b2b2b;" id="userName">Loading ...</h1>
+                    <div style="font-weight: normal;" class="nD M">
+                        <p style="color: #dbdbdb;">Permissions:</p>
+                        <p style="color: #2b2b2b;" id="permissions">Loading ...</p>
+                    </div>
+                    <div style="font-weight: normal;" class="nD M">
+                        <p style="color: #dbdbdb;">ID:</p>
+                        <p style="color: #2b2b2b;" id="userId">Loading ...</p>
+                    </div>
+                    <div style="font-weight: normal;" class="nD M">
+                        <p style="color: #dbdbdb;">Created At:</p>
+                        <p style="color: #2b2b2b;" id="createdAt">Loading ...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            let oPP = document.getElementById('onProfilePicture');
+            function sF() {
+                oPP.style.display = "flex";
+
+                let f = new FormData();
+				f.append('file', document.getElementById('file').files[0]);
+
+                fetch('/upload', {
+                    method: 'POST',
+                    body: f
+                }).then(r => r.json()).then(res => {
+                    if(res.error) return console.log(res);
+                    window.location.reload();
+                })
+            }
+            function setPicture(data) {
+                oPP.style.display = "none";
+                if(!data) document.getElementById('test').src = "imgs/basePicture.png";
+                document.getElementById('test').src = `data:${data.mimetype};base64,` + arrayBufferToBase64(data.data.data);
+            }
+            function arrayBufferToBase64( buffer ) {
+            	var binary = '';
+            	var bytes = new Uint8Array( buffer );
+            	var len = bytes.byteLength;
+            	for (var i = 0; i < len; i++) {
+            		binary += String.fromCharCode( bytes[ i ] );
+            	}
+            	return window.btoa( binary );
+            }
+            fetch('/profilePicture', { method: 'POST' })
+            .then(r => r.json())
+            .then(res => {
+                if(res.error) return console.log(res);
+                console.log(res)
+                setPicture(res)
+            }).catch(err => {
+                oPP.style.display = "none";
+                document.getElementById('test').src = "imgs/basePicture.png";
+            })
+            fetch('/userInfos', { method: "POST" }).then(r => r.json()).then(res => {
+                let createdOn = new Date(res.createdOn).toLocaleString();
+                let cAt = document.getElementById('createdAt')
+                cAt.innerText = createdOn;
+                cAt.title = createdOn;
+
+                console.log(res.permissions)
+                let perms = res.permissions.join(', ');
+                let p = document.getElementById('permissions');
+                p.innerText = perms;
+                p.title = perms;
+
+                let uId = document.getElementById('userId');
+                uId.innerText = res.id;
+                uId.title = res.id;
+
+                let dN = document.getElementById('userName');
+                dN.innerText = res.displayName;
+                dN.title = res.displayName;
+            });
+        </script>
+        <div id="popupContainer">
+            <div id="popup">
+                <i class="material-icons">&#xe000;</i>
+                <h1>Not supported in your browser !</h1>
+            </div>
+        </div>
+    </body>
+</html>

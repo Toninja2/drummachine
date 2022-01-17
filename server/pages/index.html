@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Drum Machine</title>
+        <link rel='stylesheet' href='style/style.css'/>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <script src='js/main.js'></script>
+        <script src='js/lateralMenu.js'></script>
+        <script src='js/movableWindow.js'></script>
+        <link rel="icon" href="imgs/appIcon.ico"/>
+	<script data-ad-client="ca-pub-5521883588580599" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    </head>
+    <body>
+        <style>
+            body {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+            }
+            body::-webkit-scrollbar {
+                display: none;
+            }
+            #s {
+                height: calc(100% - 75px);
+                margin-top: 75px;
+                flex: 1;
+                background: #ebebeb;
+            }
+            #machineContainer {
+                position: relative;
+                max-width: 50%;
+                flex: 1;
+            }
+            #mainPage {
+                transition: 1s;
+                height: calc(100% - 75px);
+                position: absolute;
+                left: 0;
+                width: 200%;
+                height: 100%;
+                display: flex;
+                flex-direction: row;
+            }
+            #machine::-webkit-scrollbar {
+                display: block;
+            }
+
+        </style>
+        <!--<input id="iV">-->
+        <div id="lateralMenu">
+			<div id="lMenuHeader">
+				<span></span>
+				<h1>Options</h1>
+			</div>
+			<div id="options">
+                <button onclick="window.open('/projects', '_self')" style="background: #e67e22">Public projects</button>
+                <hr class="break">
+                <button onclick="saveOnWeb()">Save on web</button>
+                <button onclick="getSong()">Load from web</button>
+                <hr class="break">
+                <button onClick="window.open('/login', '_self')">Login page</button>
+            </div>
+		</div>
+        <div id="menu" data-case="0">
+            <button onclick="chooseTempoFor(this.parentElement.dataset.case)">Tempo</button>
+            <button onclick="resetCaseTempo(this.parentElement.dataset.case)">Remove Tempo</button>
+            <hr>
+            <button onclick="play(false, this.parentElement.dataset.case)">Start here</button>
+            <hr>
+            <button onclick="copy(this.parentElement.dataset.case)">Copy</button>
+            <button onclick="pastePart(this.parentElement.dataset.case, getClipboard())">Paste</button>
+            <hr>
+            <p>Master volume</p>
+            <input type="range" min="0" max="100" id="masterVolume"></input>
+            <hr>
+            <button onclick="deleteTime(this.parentElement.dataset.case)" style="color: #f04747;">Delete this time</button>
+        </div>
+        <header>
+            <button id="addColumn" onclick="addColumn()">
+                Add time
+            </button>
+            <button id="removeColumn" onclick="removeColumn()">
+                Remove time
+            </button>
+            <button id="dlConfig" onclick="downloadConfig()">
+                Download project
+            </button>
+            <label id="fileContainer" for="a">
+                Load a project
+                <input type="file" id="a" name="a" class="custom-file-input">
+            </label>
+            <button class="menuBarB" onclick="rotateRects()">
+				<div id="0" class='rectSvg'></div>
+				<div id='1' class='rectSvg'></div>
+			</button>
+        </header>
+        <div id="mainPage">
+            <div id="machineContainer">
+                <div id="macContainer">
+                    <div id="drumsInfos">
+                        <div data-sound='cymbal' class="drumInfo" id="cymbalInfo">
+                            <p>Cymbal</p>
+                            <input type="range" min="0" max="200" value="100"/>
+                            <button class="playSound"><i class='material-icons'>&#xe037;</i></button>
+                        </div>
+                        <div data-sound='shaker' class="drumInfo" id="shakerInfo">
+                            <p>Shaker</p>
+                            <input type="range" min="0" max="200" value="100"/>
+                            <button class="playSound"><i class='material-icons'>&#xe037;</i></button>
+                        </div>
+                        <div data-sound='hiHat' class="drumInfo" id="hiHatInfo">
+                            <p>Hi-Hat</p>
+                            <input type="range" min="0" max="200" value="100"/>
+                            <button class="playSound"><i class='material-icons'>&#xe037;</i></button>
+                        </div>
+                        <div data-sound='snare' class="drumInfo" id="snareInfo">
+                            <p>Snare</p>
+                            <input type="range" min="0" max="200" value="100"/>
+                            <button class="playSound"><i class='material-icons'>&#xe037;</i></button>
+                        </div>
+                        <div data-sound='kick' class="drumInfo" id="kickInfo">
+                            <p>Kick</p>
+                            <input type="range" min="0" max="200" value="100"/>
+                            <button class="playSound"><i class='material-icons'>&#xe037;</i></button>
+                        </div>
+                    </div>
+                    <div id="machine">
+                        <div data-sound="cymbal" id="bC" class="machineRow">
+                            <button>
+                                <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="25" cy="25" r="20" fill="black"/>
+                                </svg>
+                            </button>
+                            <button>
+                                <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="25" cy="25" r="20" fill="black"/>
+                                </svg>
+                            </button>
+                            <button>
+                                <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="25" cy="25" r="20" fill="black"/>
+                                </svg>
+                            </button>
+                            <button>
+                                <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="25" cy="25" r="20" fill="black"/>
+                                </svg>
+                            </button>
+                            <button>
+                                <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="25" cy="25" r="20" fill="black"/>
+                                </svg>
+                            </button>
+                            <button>
+                                <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="25" cy="25" r="20" fill="black"/>
+                                </svg>
+                            </button>
+                            <button>
+                                <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="25" cy="25" r="20" fill="black"/>
+                                </svg>
+                            </button>
+                            <button>
+                                <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="25" cy="25" r="20" fill="black"/>
+                                </svg>
+                            </button>
+                        </div>
+                        <div data-sound="shaker" id="bell" class="machineRow">
+                            <button>
+                                <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="25" cy="25" r="20" fill="black"/>
+                                </svg>
+                            </button>
+                            <button>
+                                <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="25" cy="25" r="20" fill="black"/>
+                                </svg>
+                            </button>
+                            <button>
+                                <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="25" cy="25" r="20" fill="black"/>
+                                </svg>
+                            </button>
+                            <button>
+                                <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="25" cy="25" r="20" fill="black"/>
+                                </svg>
+                            </button>
+                            <button>
+                                <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="25" cy="25" r="20" fill="black"/>
+                                </svg>
+                            </button>
+                            <button>
+                                <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="25" cy="25" r="20" fill="black"/>
+                                </svg>
+                            </button>
+                            <button>
+                                <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="25" cy="25" r="20" fill="black"/>
+                                </svg>
+                            </button>
+                            <button>
+                                <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="25" cy="25" r="20" fill="black"/>
+                                </svg>
+                            </button>
+                        </div>
+                        <div data-sound="hiHat" id="hiHat" class="machineRow">
+                            <button>
+                                <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="25" cy="25" r="20" fill="black"/>
+                                </svg>
+                            </button>
+                            <button>
+                                <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="25" cy="25" r="20" fill="black"/>
+                                </svg>
+                            </button>
+                            <button>
+                                <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="25" cy="25" r="20" fill="black"/>
+                                </svg>
+                            </button>
+                            <button>
+                                <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="25" cy="25" r="20" fill="black"/>
+                                </svg>
+                            </button>
+                            <button>
+                                <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="25" cy="25" r="20" fill="black"/>
+                                </svg>
+                            </button>
+                            <button>
+                                <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="25" cy="25" r="20" fill="black"/>
+                                </svg>
+                            </button>
+                            <button>
+                                <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="25" cy="25" r="20" fill="black"/>
+                                </svg>
+                            </button>
+                            <button>
+                                <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="25" cy="25" r="20" fill="black"/>
+                                </svg>
+                            </button>
+                        </div>
+                        <div data-sound="snare" id="snare" class="machineRow">
+                            <button>
+                                <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="25" cy="25" r="20" fill="black"/>
+                                </svg>
+                            </button>
+                            <button>
+                                <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="25" cy="25" r="20" fill="black"/>
+                                </svg>
+                            </button>
+                            <button>
+                                <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="25" cy="25" r="20" fill="black"/>
+                                </svg>
+                            </button>
+                            <button>
+                                <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="25" cy="25" r="20" fill="black"/>
+                                </svg>
+                            </button>
+                            <button>
+                                <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="25" cy="25" r="20" fill="black"/>
+                                </svg>
+                            </button>
+                            <button>
+                                <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="25" cy="25" r="20" fill="black"/>
+                                </svg>
+                            </button>
+                            <button>
+                                <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="25" cy="25" r="20" fill="black"/>
+                                </svg>
+                            </button>
+                            <button>
+                                <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="25" cy="25" r="20" fill="black"/>
+                                </svg>
+                            </button>
+                        </div>
+                        <div data-sound="kick" id="kick" class="machineRow">
+                            <button>
+                                <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="25" cy="25" r="20" fill="black"/>
+                                </svg>
+                            </button>
+                            <button>
+                                <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="25" cy="25" r="20" fill="black"/>
+                                </svg>
+                            </button>
+                            <button>
+                                <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="25" cy="25" r="20" fill="black"/>
+                                </svg>
+                            </button>
+                            <button>
+                                <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="25" cy="25" r="20" fill="black"/>
+                                </svg>
+                            </button>
+                            <button>
+                                <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="25" cy="25" r="20" fill="black"/>
+                                </svg>
+                            </button>
+                            <button>
+                                <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="25" cy="25" r="20" fill="black"/>
+                                </svg>
+                            </button>
+                            <button>
+                                <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="25" cy="25" r="20" fill="black"/>
+                                </svg>
+                            </button>
+                            <button>
+                                <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="25" cy="25" r="20" fill="black"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div id="controls">
+                    <button id="play" onclick='play()' title='Play Rythm'><i class='material-icons'>&#xe037;</i></button>
+                    <button id="pause" onclick="pause()" title='Pause Rythm'><i class='material-icons'>&#xe034;</i></button>
+                    <button id="stop" onclick='stop()' title='Stop Rythm'><i class='material-icons'>&#xe047;</i></button>
+                    <button id="reload" onclick='reset(true)' title='Reset Rythm'><i class='material-icons'>&#xe5d5;</i></button>
+                    <hr id="controlsSeparator"/>
+                    <p id="tempoIndicator">Tempo</p>
+                    <div id="selectNumber">
+    					<input type="number" min="30" max="300" value="120" name="tempo" placeholder="Tempo" />
+    					<div id="downUp">
+    						<button id="up" onclick="this.parentElement.parentElement.getElementsByTagName('input')[0].stepUp()">+</button>
+    						<!--<hr/>-->
+    						<button id="down" onclick="this.parentElement.parentElement.getElementsByTagName('input')[0].stepDown()">-</button>
+    					</div>
+    				</div>
+                    <h1 style="margin-left: auto;" id="songName">No name</h1>
+                </div>
+                <div id="popupContainer">
+                    <div id="popup">
+                        <i class="material-icons">&#xe000;</i>
+                        <h1>Not supported in your browser !</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer>
+            <h1>Toninja - Drum Machine 2020</h1>
+        </footer>
+    </body>
+</html>

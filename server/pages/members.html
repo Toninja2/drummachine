@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Drum Machine</title>
+        <link rel='stylesheet' href='style/style.css'/>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <script src='js/lateralMenu.js'></script>
+        <link rel="icon" href="imgs/appIcon.ico"/>
+	<script data-ad-client="ca-pub-5521883588580599" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    </head>
+    <body class="flex">
+        <div id="lateralMenu">
+			<div id="lMenuHeader">
+				<span></span>
+				<h1>Options</h1>
+			</div>
+		</div>
+        <header>
+            <button id="dlConfig" onclick="downloadConfig()">
+                Go to the song creation page
+            </button>
+            <button class="menuBarB" onclick="rotateRects()">
+				<div id="0" class='rectSvg'></div>
+				<div id='1' class='rectSvg'></div>
+			</button>
+        </header>
+        <div id="userList">
+            <div id="uInfos">
+                <div id="globalInfos">
+                    <h1 id="globalUserName">No user selected !</h1>
+                    <p id="globalUserId">ID: No user selected !</p>
+                </div>
+                <div id="userInfos">
+                    <div class="nD">
+                        <p>Password length:</p>
+                        <p id="passwordLength">No user selected !</p>
+                    </div>
+                    <div class="nD">
+                        <p>Created at:</p>
+                        <p id="createdAt">No user selected !</p>
+                    </div>
+                    <div class="nD">
+                        <p>Permissions:</p>
+                        <p id="userPermissions">No user selected !</p>
+                    </div>
+                    <img id="userProfilePicture"/>
+                </div>
+                <button id="edit" class="disabled">No user selected !</button>
+            </div>
+            <div id="pL"><h1 id="noFound">No song found or executing request !</h1></div>
+        </div>
+        <div id="popupContainer">
+            <div id="popup">
+                <i class="material-icons">&#xe000;</i>
+                <h1>Not supported in your browser !</h1>
+            </div>
+        </div>
+        <script>
+            let u = [];
+            function isEmpty(obj) {
+                for(var key in obj) {
+                    if(obj.hasOwnProperty(key))
+                        return false;
+                }
+                return true;
+            }
+            let pL = document.getElementById('pL');
+            async function getUsersOnWeb() {
+                let before = Date.now();
+                let r = await fetch('/users', {
+                    method: 'POST'
+                });
+                console.log('Executed request in: ', (Date.now() - before), 'ms');
+                let users = await r.json();
+
+                pL.innerHTML = '<h1 id="noFound">No song found !</h1>';
+                if(!isEmpty(users)) document.getElementById('noFound').style.display = "none";
+
+                for(let user in users) {
+                    u.push(users[user]);
+
+                    let userDiv = document.createElement('div');
+                    userDiv.id = user.replace(/ /g, '-');
+                    userDiv.classList.add('dUser');
+
+                    let userInfos = document.createElement('div');
+
+                    let userName = document.createElement('h1');
+                    userName.innerText = users[user].displayName;
+                    let userId = document.createElement('p');
+                    userId.innerText = users[user].id;
+
+                    userInfos.appendChild(userName);
+                    userInfos.appendChild(userId);
+
+                    userDiv.appendChild(userInfos);
+                    pL.appendChild(userDiv)
+
+                    userDiv.onclick = async e => {
+                        let selectedDivs = document.querySelectorAll('.sDSelected');
+                        if(selectedDivs.length) {
+                            for(let d of selectedDivs) {
+                                d.classList.remove('sDSelected');
+                            }
+                        }
+                        userDiv.classList.add('sDSelected');
+                        initInfoPanel(users[user]);
+                    }
+                }
+            }
+            function setPicture(data) {
+                if(!data) return document.getElementById('userProfilePicture').src = "imgs/basePicture.png";
+                document.getElementById('userProfilePicture').src = `data:${data.mimetype};base64,` + arrayBufferToBase64(data.data.data);
+            }
+            function arrayBufferToBase64( buffer ) {
+            	var binary = '';
+            	var bytes = new Uint8Array( buffer );
+            	var len = bytes.byteLength;
+            	for (var i = 0; i < len; i++) {
+            		binary += String.fromCharCode( bytes[ i ] );
+            	}
+            	return window.btoa( binary );
+            }
+            function initInfoPanel(infos) {
+                document.getElementById('globalUserName').innerText = infos.displayName;
+                document.getElementById('globalUserName').title = infos.displayName;
+                document.getElementById('globalUserId').innerText = 'ID: ' + infos.id;
+                document.getElementById('passwordLength').innerText = infos.password.length;
+                let edit = document.getElementById('edit');
+                edit.innerText = "Manage user !";
+                edit.classList.remove('disabled');
+
+                let selected = document.querySelector('.sDSelected');
+                document.getElementById('createdAt').innerText = new Date(infos.createdOn).toLocaleString();
+                document.getElementById('userPermissions').innerText = infos.permissions.join(', ');
+                setPicture(infos.profilePicture)
+            }
+            getUsersOnWeb();
+        </script>
+    </body>
+</html>

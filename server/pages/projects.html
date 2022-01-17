@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Drum Machine | Projects</title>
+        <link rel='stylesheet' href='style/style.css'/>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <script src='js/lateralMenu.js'></script>
+        <script src='js/projects.js'></script>
+        <script src="js/movableWindow.js"></script>
+        <link rel="icon" href="imgs/appIcon.ico"/>
+	<script data-ad-client="ca-pub-5521883588580599" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    </head>
+    <body class="flex">
+        <div id="lateralMenu">
+			<div id="lMenuHeader">
+				<span></span>
+				<h1>Options</h1>
+			</div>
+			<div id="options">
+                <button id="loginButton">Login</button>
+                <button onclick="window.open('/', '_self')">New project</button>
+			</div>
+		</div>
+        <header>
+            <input id="searchBar" type="search" placeholder="Search"/>
+            <button id="dlConfig" onclick="downloadConfig()">
+                Go to the song creation page
+            </button>
+            <button class="menuBarB" onclick="rotateRects()">
+				<div id="0" class='rectSvg'></div>
+				<div id='1' class='rectSvg'></div>
+			</button>
+        </header>
+        <div id="projectsList">
+            <div id="lCInfos">
+                <div id="globalInfos">
+                    <h1 id="globalVidTitle">No song selected !</h1>
+                    <p id="globalVidTempo">Tempo: No song selected !</p>
+                </div>
+                <div id="songInfos">
+                    <div class="nD">
+                        <p>Times:</p>
+                        <p id="times">No song selected !</p>
+                    </div>
+                    <div class="nD">
+                        <p>Kick volume:</p>
+                        <p id="kV">No song selected !</p>
+                    </div>
+                    <div class="nD">
+                        <p>Snare volume:</p>
+                        <p id="sV">No song selected !</p>
+                    </div>
+                    <div class="nD">
+                        <p>Hi-Hat volume:</p>
+                        <p id="hV">No song selected !</p>
+                    </div>
+                    <div class="nD">
+                        <p>Shaker Volume:</p>
+                        <p id="shV">No song selected !</p>
+                    </div>
+                    <div class="nD">
+                        <p>Cymbal volume:</p>
+                        <p id="cV">No song selected !</p>
+                    </div>
+                </div>
+                <button id="edit" class="disabled">No song selected !</button>
+            </div>
+            <div id="pL"><h1 id="noFound">No song found !</h1></div>
+        </div>
+        <div id="popupContainer">
+            <div id="popup">
+                <i class="material-icons">&#xe000;</i>
+                <h1>Not supported in your browser !</h1>
+            </div>
+        </div>
+    </body>
+</html>
